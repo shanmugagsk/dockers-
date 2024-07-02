@@ -1,0 +1,43 @@
+ yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-engine \
+                  podman \
+                  runc
+dhf install -y yum-utils
+dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+dnf list docker-ce
+dnf install docker-ce docker-ce-cli containerd.io -y; (or) dnf install docker-ce --nobest -y 
+systenctl enable docker. service
+				RPM
+
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-latest.x86_64.rpm
+sudo rpm -Uvh minikube-latest.x86_64.rpm
+				Binary
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+minikube version
+
+for kubectl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x ./kubectl
+cp ./kubectl /usr/local/bin/kubectl
+rm -rf kubectl
+
+kubectl version -o json --client
+
+useradd -u 1024 -g docker docker
+passwd docker
+su docker
+minikube start
+minikube start --vm-driver=docker --force
+The below command would display the health of scheduler, controller and etcd
+
+kubectl get cs
+or
+kubectl get componentstatus
